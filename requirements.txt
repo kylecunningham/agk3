@@ -1,0 +1,7 @@
+http://hg.q-continuum.net/platform_utils/archive/tip.tar.gz
+http://hg.q-continuum.net/libloader/archive/tip.tar.gz
+http://hg.q-continuum.net/sound_lib/archive/tip.tar.gz
+http://hg.q-continuum.net/accessible_output2/archive/tip.tar.gz
+future
+pycrypto
+pygame
