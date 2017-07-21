@@ -1,9 +1,12 @@
+from attr import attrs, attrib
 import pygame
+@attrs
 class window(object):
-	def __init__(self,title):
-		self.title=title
+	title = attrib()
+	width = attrib(default=Factory(lambda: 300))
+	height = attrib(default=Factory(lambda: 200))
 
-		(self.width, self.height) = (300, 200)
+def __attrs_post_init__(self):
 		self.screen = pygame.display.set_mode((self.width, self.height))
 		pygame.display.set_caption(title)
 

@@ -5,3 +5,4 @@ http://hg.q-continuum.net/accessible_output2/archive/tip.tar.gz
 future
 pycrypto
 pygame
+attr
