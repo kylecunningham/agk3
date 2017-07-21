@@ -1,21 +1,26 @@
 import zipfile
 import os
 
+from attr import attrs, attrib, Factory
 import libaudioverse
 import platform_utils.paths
 
 sound_dir = os.path.join(platform_utils.paths.embedded_data_path(), '')
 
+@attrs
 class SoundLoader(object):
 
-	def __init__(self, server, world,pack=""):
-		self.server = server
-		self.world = world
-		self.pack = pack
+	server = attrib()
+	world = attrib()
+	pack = attrib(default=Factory(str))
+	zdata = attrib(default=Factory(lambda: None), repr=False, init=False)
+	pdata = attrib(default=Factory(dict), repr=False, init=False)
+	cache = attrib(default=Factory(dict), repr=False, init=False)
+	
+	def __attrs_post_init__(self):
 		if pack!="":
 			self.zdata=zipfile.ZipFile(self.pack)
 			self.pdata={name: self.zdata.read(name) for name in self.zdata.namelist()}
-		self.cache=dict()
 
 	def get_position(self):
 		position=self.source.position
@@ -44,11 +49,11 @@ class SoundLoader(object):
 		n.buffer.value =b
 		return Sound(n,self.source)
 
+@attrs
 class Sound(object):
 
-	def __init__(self, buffer_node,source):
-		self.buffer_node = buffer_node
-		self.source = source
+	buffer_node = attrib()
+	source = attrib()
 
 	def stop(self):
 		self.buffer_node.state = libaudioverse.NodeStates.stop

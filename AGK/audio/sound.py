@@ -1,9 +1,11 @@
+from attr import attrs, attrib, Factory
 import sound_lib
 from sound_lib import output
 from sound_lib import stream
 o=output.Output()
+@attrs
 class sound():
-	handle=0
+	handle=attrib(default=Factory(int))
 	def load(self,filename=""):
 		self.handle =stream.FileStream(file=filename)
 	def play(self):
