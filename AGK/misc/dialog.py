@@ -7,7 +7,7 @@ import pygame
 @attrs
 class dialog(object):
 	text = attrib()
-	popup_sound = attrib(default=factory(str))
+	popup_sound = attrib(default=Factory(str))
 	SAPI = attrib(default=Factory(bool))
 	
 	def __attrs_post_init__(self):

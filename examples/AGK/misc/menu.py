@@ -1,21 +1,22 @@
+from attr import attrs, attrib, Factory
 from ..speech import SAPI, auto
 from ..mainframe import keyboard
 from ..audio import sound
 import pygame
+@attrs
 class menu_item(object):
-	def __init__(self,text,name,is_tts):
-		self.text=text
-		self.name=name
-		self.is_tts=is_tts
+	text = attrib()
+	name = attrib()
+	is_tts = attrib()
 
+@attrs
 class menu(object):
-	def __init__(self, sapi=False, run_sound="", select_sound="", move_sound=""):
-		self.position=0
-		self.items=[]
-		self.sapi=sapi
-		self.run_sound=run_sound
-		self.select_sound=select_sound
-		self.move_sound=move_sound
+	sapi = attrib(default=Factory(bool))
+	run_sound = attrib(default=Factory(str))
+	select_sound = attrib(default=Factory(str))
+	move_sound = attrib(default=Factory(str))
+	position = attrib(default=Factory(int))
+	items = attrib(default=Factory(list), init=False)
 
 	def add_item_tts(self,text,name):
 		self.items.append(menu_item(text,name,True))

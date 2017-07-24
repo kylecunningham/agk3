@@ -12,6 +12,9 @@ Contents
 See the license file in this repository.
 ## What's new?
 New changes always appear first.
+* July 2017
+  * fixed problems with attributes and classes.
+  * merged pull request from [chris norman](https://github.com/chrisnorman7) into the main branch.
 * June 2017:
   * Added working text dialogs. These can be created using the AGK.dialog module. See examples folder.
   * given menus some sound capabilities. See the menu example for how this is to be done. Also note that sounds do not have to be put into menus.
