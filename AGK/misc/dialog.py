@@ -45,7 +45,21 @@ class EntryDialog(object):
 	def do_entry(self):
 		string = ""
 		while 1:
-			char = keyboard.getCharacter()
+			keyinput = pygame.key.get_pressed()  
+			character = "NULL"
+
+			# Get all "Events" that have occurred.
+			pygame.event.pump()
+			keyPress = keyboard.pressed()
+
+			#If the user presses a key on the keyboard then get the character
+			if keyPress >= 32 and keyPress <= 126:
+				#If the user presses the shift key while pressing another character then capitalise it
+				if keyinput[K_LSHIFT]: 
+					keyPress -= 32
+
+			character = chr(keyPress)
+
 			if char == "NULL":
 				continue
 			elif char != "NULL":
