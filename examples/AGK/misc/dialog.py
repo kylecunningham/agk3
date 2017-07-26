@@ -37,20 +37,20 @@ class dialog(object):
 class EntryDialog(object):
 	displaytext = attrib()
 	SAPI = attrib(default=Factory(bool))
+	string = attrib(default=Factory(str))
 
 	def __attrs_post_init__(self):
 		self.speak(self.displaytext + " To repeat, press F1.")
 		self.do_entry()
 
 	def do_entry(self):
-		string = ""
 		while 1:
 			for evt in pygame.event.get():
 				if evt.type == pygame.KEYDOWN:
 					if evt.key==pygame.K_F1:
 						self.speak(self.displaytext)
 					if evt.key == pygame.K_RETURN:
-						return string
+						return self.string
 					if evt.key==pygame.K_ESCAPE:
 						break
 			char = self.CatchCharacters()
@@ -58,7 +58,7 @@ class EntryDialog(object):
 				continue
 			elif char != "NULL" or char != None:
 				self.speak(char)
-				string = string + char
+				self.string = self.string + char
 
 
 	def speak(self, text):
@@ -68,7 +68,7 @@ class EntryDialog(object):
 			auto.speak(text)
 
 	def CatchCharacters(self):
-		keyinput = pygame.key.get_pressed()
+#		keyinput = pygame.key.get_pressed()
 		character = "NULL"
 
 		# Get all "Events" that have occurred.
