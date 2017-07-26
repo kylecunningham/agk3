@@ -45,24 +45,11 @@ class EntryDialog(object):
 	def do_entry(self):
 		string = ""
 		while 1:
-			keyinput = pygame.key.get_pressed()  
-			character = "NULL"
-
-			# Get all "Events" that have occurred.
-			pygame.event.pump()
-			keyPress = keyboard.pressed()
-
-			#If the user presses a key on the keyboard then get the character
-			if keyPress >= 32 and keyPress <= 126:
-				#If the user presses the shift key while pressing another character then capitalise it
-				if keyinput[K_LSHIFT]: 
-					keyPress -= 32
-
-			character = chr(keyPress)
-
-			if char == "NULL":
+			char = self.CatchCharacters()
+			if char == "NULL" or char==None:
 				continue
-			elif char != "NULL":
+			elif char != "NULL" or char != None:
+				self.speak(char)
 				string = string + char
 			for evt in pygame.event.get():
 				if evt.type == pygame.KEYDOWN:
@@ -78,3 +65,18 @@ class EntryDialog(object):
 			SAPI.speak(text)
 		else:
 			auto.speak(text)
+
+	def CatchCharacters(self):
+		keyinput = pygame.key.get_pressed()
+		character = "NULL"
+
+		# Get all "Events" that have occurred.
+		pygame.event.pump()
+		keyPress = keyboard.pressed()
+
+		if keyPress != None:
+
+			#If the user presses a key on the keyboard then get the character
+			character = chr(keyPress)
+
+		return character
