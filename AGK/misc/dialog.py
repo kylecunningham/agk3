@@ -45,12 +45,6 @@ class EntryDialog(object):
 	def do_entry(self):
 		string = ""
 		while 1:
-			char = self.CatchCharacters()
-			if char == "NULL" or char==None:
-				continue
-			elif char != "NULL" or char != None:
-				self.speak(char)
-				string = string + char
 			for evt in pygame.event.get():
 				if evt.type == pygame.KEYDOWN:
 					if evt.key==pygame.K_F1:
@@ -59,6 +53,13 @@ class EntryDialog(object):
 						return string
 					if evt.key==pygame.K_ESCAPE:
 						break
+			char = self.CatchCharacters()
+			if char == "NULL" or char==None:
+				continue
+			elif char != "NULL" or char != None:
+				self.speak(char)
+				string = string + char
+
 
 	def speak(self, text):
 		if self.SAPI==True:
