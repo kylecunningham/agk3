@@ -3,6 +3,7 @@ from ..speech import auto, SAPI
 from ..mainframe import keyboard
 from ..audio import sound
 import pygame
+from pygame.locals import *
 
 @attrs
 class dialog(object):
@@ -44,22 +45,8 @@ class EntryDialog(object):
 		self.do_entry()
 
 	def do_entry(self):
-		while 1:
-			for evt in pygame.event.get():
-				if evt.type == pygame.KEYDOWN:
-					if evt.key==pygame.K_F1:
-						self.speak(self.displaytext)
-					if evt.key == pygame.K_RETURN:
-						return self.string
-					if evt.key==pygame.K_ESCAPE:
-						break
-			char = self.CatchCharacters()
-			if char == "NULL" or char==None:
-				continue
-			elif char != "NULL" or char != None:
-				self.speak(char)
-				self.string = self.string + char
-
+		self.speak(self.displaytext + " To repeat, press F1.")
+		self.CatchInput()
 
 	def speak(self, text):
 		if self.SAPI==True:
@@ -67,17 +54,22 @@ class EntryDialog(object):
 		else:
 			auto.speak(text)
 
-	def CatchCharacters(self):
-#		keyinput = pygame.key.get_pressed()
-		character = "NULL"
+	def CatchInput(self):
+		while True:
+			for evt in pygame.event.get():
+				if evt.type == KEYDOWN:
+					if evt.unicode.isalpha():
+						self.speak(evt.unicode)
+						self.string += evt.unicode
+					elif evt.key == K_SPACE:
+						self.string += " "
+					elif evt.key == K_BACKSPACE:
+						self.speak("character deleted")
+						self.string = self.string[:-1]
+					elif evt.key == K_UP or evt.key == K_DOWN:
+						self.speak(self.string)
+					elif evt.key == K_F1:
+						self.speak(self.displaytext)
+					elif evt.key == K_RETURN:
+						return self.string
 
-		# Get all "Events" that have occurred.
-		pygame.event.pump()
-		keyPress = keyboard.pressed()
-
-		if keyPress != None:
-
-			#If the user presses a key on the keyboard then get the character
-			character = chr(keyPress)
-
-		return character
