@@ -37,10 +37,14 @@ class dialog(object):
 @attrs
 class EntryDialog(object):
 	displaytext = attrib()
+	type_sound = attrib(default=Factory(str))
 	SAPI = attrib(default=Factory(bool))
 	string = attrib(default=Factory(str))
 
 	def __attrs_post_init__(self):
+		if self.type_sound != "":
+			self.type_handle = sound.sound()
+			self.type_handle.load(self.type_sound)
 		self.speak(self.displaytext + " To repeat, press F1.")
 		self.do_entry()
 
@@ -59,6 +63,8 @@ class EntryDialog(object):
 			for evt in pygame.event.get():
 				if evt.type == KEYDOWN:
 					if evt.unicode.isalpha():
+						if self.type_sound != "":
+							self.type_handle.play()
 						self.speak(evt.unicode)
 						self.string += evt.unicode
 					elif evt.key == K_SPACE:
