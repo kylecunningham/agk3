@@ -8,6 +8,7 @@ class menu_item(object):
 	text = attrib()
 	name = attrib()
 	is_tts = attrib()
+	is_enabled = attrib(default=Factory(bool))
 
 @attrs
 class menu(object):
@@ -18,8 +19,8 @@ class menu(object):
 	position = attrib(default=Factory(int))
 	items = attrib(default=Factory(list), init=False)
 
-	def add_item_tts(self,text,name):
-		self.items.append(menu_item(text,name,True))
+	def add_item_tts(self,text,name,enabled=True):
+		self.items.append(menu_item(text,name,True,enabled))
 
 	def run(self,intro):
 		if self.move_sound != "":

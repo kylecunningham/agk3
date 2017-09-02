@@ -18,7 +18,7 @@ class SoundLoader(object):
 	cache = attrib(default=Factory(dict), repr=False, init=False)
 	
 	def __attrs_post_init__(self):
-		if pack!="":
+		if self.pack!="":
 			self.zdata=zipfile.ZipFile(self.pack)
 			self.pdata={name: self.zdata.read(name) for name in self.zdata.namelist()}
 
