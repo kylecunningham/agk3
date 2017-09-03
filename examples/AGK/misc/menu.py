@@ -61,6 +61,7 @@ class menu(object):
 					if event.key==pygame.K_RETURN:
 						if self.items[self.position].is_enabled == False:
 							self.speak(self.disabled_text)
+							break
 						if self.select_sound != "":
 							self.select_sound_handle.play()
 						return self.items[self.position]
