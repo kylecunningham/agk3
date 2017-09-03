@@ -16,6 +16,7 @@ class menu(object):
 	run_sound = attrib(default=Factory(str))
 	select_sound = attrib(default=Factory(str))
 	move_sound = attrib(default=Factory(str))
+	disabled_text = attrib(default=Factory(str))
 	position = attrib(default=Factory(int))
 	items = attrib(default=Factory(list), init=False)
 
@@ -41,6 +42,8 @@ class menu(object):
 						else:
 							self.position-=1
 						self.speak(self.items[self.position].text)
+						if self.items[self.position].is_enabled == False:
+							self.speak("disabled")
 						if self.move_sound != "":
 							self.move_sound_handle.stop()
 							self.move_sound_handle.play()
@@ -48,12 +51,16 @@ class menu(object):
 						if self.position<len(self.items)-1:
 							self.position+=1
 						self.speak(self.items[self.position].text)
+						if self.items[self.position].is_enabled == False:
+							self.speak("disabled")
 						if self.move_sound != "":
 							self.move_sound_handle.stop()
 							self.move_sound_handle.play()
 
 
 					if event.key==pygame.K_RETURN:
+						if self.items[self.position].is_enabled == False:
+							self.speak(self.disabled_text)
 						if self.select_sound != "":
 							self.select_sound_handle.play()
 						return self.items[self.position]
