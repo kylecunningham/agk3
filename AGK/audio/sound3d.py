@@ -39,7 +39,7 @@ class SoundLoader(object):
 		self.source = libaudioverse.SourceNode(self.server, self.world)
 		if key not in self.cache:
 			b = libaudioverse.Buffer(self.server)
-			if self.pdata=="":
+			if self.pack=="":
 				b.load_from_file(os.path.join(sound_dir, key))
 			else:
 				b.decode_from_array(self.pdata[key])

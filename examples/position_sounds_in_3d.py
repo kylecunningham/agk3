@@ -10,7 +10,7 @@ sl=s3d.SoundLoader(world.server,world.world)
 click1=sl.load_sound("snd/l.ogg")
 click2=sl.load_sound("snd/r.ogg")
 #position them.
-click1.source.position=-10,0,1
+click1.source.position=-10,0,0
 click2.source.position=10,0,0
 #the values are x, y, and z.
 #play click1.
