@@ -54,11 +54,8 @@ class EntryDialog(object):
 			self.type_handle = sound.sound()
 			self.type_handle.load(self.type_sound)
 		speak(self.displaytext + " To repeat, press F1, to toggle speaking of characters, press f2.",self.SAPI)
-		self.do_entry()
-
-	def do_entry(self):
-		speak(self.displaytext + " To repeat, press F1.",self.SAPI)
 		self.CatchInput()
+
 
 	def CatchInput(self):
 		while True:
